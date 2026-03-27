@@ -19,7 +19,7 @@ let winPatterns = [
     [0,4,8],[2,4,6]
 ];
 
-// 🎯 Mode selection
+//Mode selection
 function setMode(mode, btn) {
     gameMode = mode;
 
@@ -40,7 +40,7 @@ function setMode(mode, btn) {
     restartGame();
 }
 
-// 🎯 Difficulty
+//Difficulty
 function setDifficulty(level, btn) {
     difficulty = level;
 
@@ -50,7 +50,7 @@ function setDifficulty(level, btn) {
     btn.classList.add("active");
 }
 
-// ✨ Animation helper
+//Animation helper
 function animateCell(cell) {
     cell.classList.add("pop");
     setTimeout(() => {
@@ -58,7 +58,7 @@ function animateCell(cell) {
     }, 200);
 }
 
-// 🖱️ Click logic
+//Click logic
 cells.forEach(cell => {
     cell.addEventListener("click", () => {
 
@@ -94,7 +94,7 @@ cells.forEach(cell => {
     });
 });
 
-// 🤖 AI controller
+//AI controller
 function computerMove() {
 
     if (difficulty === "easy") randomMove();
@@ -110,7 +110,7 @@ function computerMove() {
     checkWinner();
 }
 
-// 🎲 Random move
+//Random move
 function randomMove() {
     let empty = [];
 
@@ -123,7 +123,7 @@ function randomMove() {
     animateCell(cells[index]);
 }
 
-// 🛑 Block player
+//Block player
 function blockMove() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
@@ -141,7 +141,7 @@ function blockMove() {
     return false;
 }
 
-// 🏆 Win move
+//Win move
 function winMove() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
@@ -159,7 +159,7 @@ function winMove() {
     return false;
 }
 
-// 🏁 Check winner / draw
+//Check winner / draw
 function checkWinner() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
@@ -193,7 +193,7 @@ function checkWinner() {
     }
 }
 
-// 🔄 Restart
+// Restart
 function restartGame() {
     cells.forEach(cell => {
         cell.textContent = "";

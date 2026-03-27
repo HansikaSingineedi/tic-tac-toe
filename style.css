@@ -34,7 +34,7 @@ button:hover {
     background: #5a67d8;
 }
 
-/* 🔥 Active (subtle highlight) */
+/* Active (subtle highlight) */
 .active {
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
     transform: scale(1.08);
@@ -63,7 +63,7 @@ button:hover {
 }
 
 
-/* 🔥 Pop animation */
+/*Pop animation */
 .cell.pop {
     animation: pop 0.2s ease;
 }
@@ -79,7 +79,7 @@ button:hover {
     }
 }
 
-/* 🏆 Winner animation */
+/* Winner animation */
 .winner {
     background: #4ade80 !important;
     animation: winPulse 0.6s infinite alternate;
