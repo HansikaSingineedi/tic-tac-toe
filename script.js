@@ -3,7 +3,7 @@ let currentPlayer = "X";
 let gameOver = false;
 
 let gameMode = "pvp";
-let difficulty = "easy";
+let difficulty = "medium";
 
 let statusText = document.getElementById("status");
 let restartBtn = document.getElementById("restart");
@@ -19,17 +19,20 @@ let winPatterns = [
     [0,4,8],[2,4,6]
 ];
 
-// Mode selection
+// 🎯 Mode selection
 function setMode(mode, btn) {
     gameMode = mode;
 
-    // highlight selected mode
     let buttons = document.querySelectorAll(".mode-btn");
     buttons.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
     if (mode === "ai") {
         difficultyBox.style.display = "block";
+
+        let diffBtns = document.querySelectorAll(".diff-btn");
+        diffBtns.forEach(b => b.classList.remove("active"));
+        diffBtns[1].classList.add("active"); // medium default
     } else {
         difficultyBox.style.display = "none";
     }
@@ -37,7 +40,7 @@ function setMode(mode, btn) {
     restartGame();
 }
 
-// 🔥 Difficulty with active highlight
+// 🎯 Difficulty
 function setDifficulty(level, btn) {
     difficulty = level;
 
@@ -47,40 +50,54 @@ function setDifficulty(level, btn) {
     btn.classList.add("active");
 }
 
-// Click logic
+// ✨ Animation helper
+function animateCell(cell) {
+    cell.classList.add("pop");
+    setTimeout(() => {
+        cell.classList.remove("pop");
+    }, 200);
+}
+
+// 🖱️ Click logic
 cells.forEach(cell => {
     cell.addEventListener("click", () => {
 
-        if (cell.textContent === "" && !gameOver) {
+        if (gameOver) return;
 
-            if (gameMode === "pvp") {
+        if (cell.textContent !== "") return;
 
-                cell.textContent = currentPlayer;
-                checkWinner();
+        // PvP
+        if (gameMode === "pvp") {
 
-                currentPlayer = (currentPlayer === "X") ? "O" : "X";
+            cell.textContent = currentPlayer;
+            animateCell(cell);
 
-            } else {
+            checkWinner();
 
-                cell.textContent = "X";
-                checkWinner();
+            currentPlayer = (currentPlayer === "X") ? "O" : "X";
 
-                if (!gameOver) {
-                    setTimeout(() => {
-                        computerMove();
-                    }, 500);
-                }
+        } 
+        // AI
+        else {
+
+            cell.textContent = "X";
+            animateCell(cell);
+
+            checkWinner();
+
+            if (!gameOver) {
+                setTimeout(() => {
+                    computerMove();
+                }, 500);
             }
         }
     });
 });
 
-// AI controller
+// 🤖 AI controller
 function computerMove() {
 
-    if (difficulty === "easy") {
-        randomMove();
-    }
+    if (difficulty === "easy") randomMove();
     else if (difficulty === "medium") {
         if (!blockMove()) randomMove();
     }
@@ -93,7 +110,7 @@ function computerMove() {
     checkWinner();
 }
 
-// Random move
+// 🎲 Random move
 function randomMove() {
     let empty = [];
 
@@ -103,45 +120,46 @@ function randomMove() {
 
     let index = empty[Math.floor(Math.random() * empty.length)];
     cells[index].textContent = "O";
+    animateCell(cells[index]);
 }
 
-// Block player
+// 🛑 Block player
 function blockMove() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
 
         if (cells[a].textContent==="X" && cells[b].textContent==="X" && cells[c].textContent==="") {
-            cells[c].textContent="O"; return true;
+            cells[c].textContent="O"; animateCell(cells[c]); return true;
         }
         if (cells[a].textContent==="X" && cells[b].textContent==="" && cells[c].textContent==="X") {
-            cells[b].textContent="O"; return true;
+            cells[b].textContent="O"; animateCell(cells[b]); return true;
         }
         if (cells[a].textContent==="" && cells[b].textContent==="X" && cells[c].textContent==="X") {
-            cells[a].textContent="O"; return true;
+            cells[a].textContent="O"; animateCell(cells[a]); return true;
         }
     }
     return false;
 }
 
-// Win move
+// 🏆 Win move
 function winMove() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
 
         if (cells[a].textContent==="O" && cells[b].textContent==="O" && cells[c].textContent==="") {
-            cells[c].textContent="O"; return true;
+            cells[c].textContent="O"; animateCell(cells[c]); return true;
         }
         if (cells[a].textContent==="O" && cells[b].textContent==="" && cells[c].textContent==="O") {
-            cells[b].textContent="O"; return true;
+            cells[b].textContent="O"; animateCell(cells[b]); return true;
         }
         if (cells[a].textContent==="" && cells[b].textContent==="O" && cells[c].textContent==="O") {
-            cells[a].textContent="O"; return true;
+            cells[a].textContent="O"; animateCell(cells[a]); return true;
         }
     }
     return false;
 }
 
-// Winner / draw
+// 🏁 Check winner / draw
 function checkWinner() {
     for (let p of winPatterns) {
         let [a,b,c] = p;
@@ -175,7 +193,7 @@ function checkWinner() {
     }
 }
 
-// Restart
+// 🔄 Restart
 function restartGame() {
     cells.forEach(cell => {
         cell.textContent = "";

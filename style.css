@@ -18,11 +18,6 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* Title */
-h1 {
-    margin-bottom: 10px;
-}
-
 /* Buttons */
 button {
     padding: 10px 15px;
@@ -32,17 +27,18 @@ button {
     background: #667eea;
     color: white;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 button:hover {
     background: #5a67d8;
 }
 
-/* 🔥 Active button (difficulty selected) */
+/* 🔥 Active (subtle highlight) */
 .active {
-    border: 2px solid #a858bd;
-    box-shadow: 0 0 10px rgba(152, 82, 189, 0.6);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+    transform: scale(1.08);
+    border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 /* Board */
@@ -64,19 +60,40 @@ button:hover {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.cell:hover {
-    background: #e0e0e0;
+
+/* 🔥 Pop animation */
+.cell.pop {
+    animation: pop 0.2s ease;
 }
 
-/* Winner highlight */
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 🏆 Winner animation */
 .winner {
     background: #4ade80 !important;
+    animation: winPulse 0.6s infinite alternate;
 }
 
-/* Text */
+@keyframes winPulse {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
 #status {
     margin-top: 10px;
     font-weight: bold;
@@ -84,4 +101,27 @@ button:hover {
 
 #score {
     margin-top: 10px;
+}
+#restart {
+    margin-top: 10px;
+    background: #ff6b6b;
+    transition: all 0.2s ease;
+}
+
+/* Hover = lift */
+#restart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Click = press */
+#restart:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+#restart {
+    background: #667eea;
+}
+#restart {
+    font-weight: bold;
 }
