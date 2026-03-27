@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Tic Tac Toe</h1>
+
+    <!-- Mode buttons -->
+    <button class="mode-btn" onclick="setMode('pvp', this)">Player vs Player</button>
+    <button class="mode-btn" onclick="setMode('ai', this)">Player vs Computer</button>
+
+    <!-- Difficulty -->
+    <div id="difficulty" style="display: none;">
+        <button class="diff-btn" onclick="setDifficulty('easy', this)">Easy</button>
+        <button class="diff-btn" onclick="setDifficulty('medium', this)">Medium</button>
+        <button class="diff-btn" onclick="setDifficulty('hard', this)">Hard</button>
+    </div>
+
+    <h2 id="score">X: 0 | O: 0</h2>
+
+    <div class="board">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+    </div>
+
+    <h2 id="status"></h2>
+    <button id="restart">Restart Game</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
