@@ -17,3 +17,12 @@ https://hansikasingineedi.github.io/tic-tac-toe/
 - HTML
 - CSS
 - JavaScript
+
+## 📚 What I Learned
+- Basic game logic implementation
+- Handling user input
+- Conditional logic and flow control
+- Debugging and improving code structure
+
+## 🤝 Contributing
+This is a beginner project, but suggestions and improvements are welcome!
